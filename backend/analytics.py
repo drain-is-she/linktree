@@ -1,5 +1,9 @@
 from database import links, click_events
 
+
+# this fuction will fetch the data 
+#CTR for particular link 
+#overall CTR 
 def analyze_user(user_id):
     user_links = list(links.find({"user_id": user_id}))
 
@@ -31,7 +35,8 @@ def analyze_user(user_id):
 
     return report, overall_ctr
 
-
+# this funciton is analysing the best and the worst links 
+# and this will also generate suggestions 
 def generate_insights(report, overall_ctr):
     advice = []
 
