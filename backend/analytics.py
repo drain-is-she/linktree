@@ -1,18 +1,14 @@
 from database import links, click_events
 
-
-# this fuction will fetch the data 
-#CTR for particular link 
-#overall CTR 
 def analyze_user(user_id):
-    user_links = list(links.find({"user_id": user_id}))
+    user_links = [link for link in links if link["user_id"] == user_id]
 
     report = []
     total_impressions = 0
     total_clicks = 0
 
     for link in user_links:
-        stats = click_events.find_one({"link_id": link["link_id"]})
+        stats = next((item for item in click_events if item["link_id"] == link["link_id"]), None)
         if not stats:
             continue
 
@@ -35,8 +31,7 @@ def analyze_user(user_id):
 
     return report, overall_ctr
 
-# this funciton is analysing the best and the worst links 
-# and this will also generate suggestions 
+
 def generate_insights(report, overall_ctr):
     advice = []
 
@@ -54,3 +49,4 @@ def generate_insights(report, overall_ctr):
     advice.append(f"Your best performing link is '{best['title']}'. Keep it near the top of your hub.")
 
     return advice
+
