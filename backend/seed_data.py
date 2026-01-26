@@ -1,3 +1,4 @@
+#inserting dummy data initially to test our model 
 from database import users, links, click_events
 
 # Clear old data
