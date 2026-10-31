@@ -14,7 +14,7 @@ def analyze_user(user_id):
 
         impressions = stats["impressions"]
         clicks = stats["clicks"]
-        ctr = round((clicks / impressions) * 100, 2)
+        ctr = round((clicks / impressions) * 100, 2) if impressions else 0.0
 
         total_impressions += impressions
         total_clicks += clicks
@@ -27,12 +27,16 @@ def analyze_user(user_id):
             "peak_time": stats["peak_time"]
         })
 
-    overall_ctr = round((total_clicks / total_impressions) * 100, 2)
+    overall_ctr = round((total_clicks / total_impressions) * 100, 2) if total_impressions else 0.0
 
     return report, overall_ctr
 
 
 def generate_insights(report, overall_ctr):
+    report = [item for item in report if item["impressions"] > 0]
+    if not report:
+        return ["No impression data yet. Collect impressions before comparing link performance."]
+
     advice = []
 
     if overall_ctr < 5:
