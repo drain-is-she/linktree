@@ -33,6 +33,8 @@ Invalid JSON, non-object bodies, and missing/invalid user IDs return JSON errors
 python -m unittest discover -s tests -v
 ```
 
+The [Tests workflow](https://github.com/drain-is-she/linktree/actions/workflows/tests.yml) runs this suite on Python 3.10 and 3.13 for pushes to `main` and pull requests. It can also be started manually from GitHub Actions. Each job installs the declared dependencies and checks their compatibility before running the tests.
+
 Tests cover weighted CTR, invalid requests, unknown users, absent data, zero impressions, ranking of observed links, and same-origin page/script delivery.
 
 ## Repository map
